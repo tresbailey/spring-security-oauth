@@ -244,6 +244,18 @@ public class CoreOAuthProviderSupport implements OAuthProviderSupport {
         builder.append(path);
       }
       baseUrl = builder.toString();
+    } else {
+      StringBuilder builder = new StringBuilder(request.getScheme());
+      builder.append("://").append(request.getLocalName()).append(":");
+      builder.append(request.getLocalPort());
+      String path = request.getRequestURI();
+      if (path != null && !"".equals(path)) {
+        if (!path.startsWith("/")) {
+          builder.append('/');
+        }
+        builder.append(path);
+      }
+      baseUrl = builder.toString();
     }
     return baseUrl;
   }
